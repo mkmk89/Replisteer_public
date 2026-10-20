@@ -80,12 +80,13 @@ params:
   externalLinkDecoration: true
 
   navbar:
-    displayTitle: true
+    # The horizontal logo already says "replisteer": no separate title next to it.
+    displayTitle: false
     displayLogo: true
     logo:
-      path: images/logo.png
-      dark: images/logo.png
-      width: 32
+      path: images/logo-horizontal.png
+      dark: images/logo-horizontal-dark.png
+      width: 145
       height: 32
     width: wide
 
