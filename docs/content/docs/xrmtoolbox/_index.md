@@ -11,7 +11,6 @@ The **toolbar** at the top works on the whole project:
 
 | Button | Shortcut | What it does |
 | --- | --- | --- |
-| **Close** | | Closes the tool (asks to save unsaved changes). |
 | **New** | Ctrl+N | Starts a new project. |
 | **Open** | Ctrl+O | Opens a project file. The arrow lists recently used files. |
 | **Save** / **Save as...** | Ctrl+S | Saves the project file. |
