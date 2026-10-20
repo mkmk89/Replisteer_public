@@ -1,0 +1,126 @@
+# Replisteer documentation site (Hugo + the Hextra theme, loaded as a Hugo module).
+#   hugo server            # preview at http://localhost:1313/Replisteer_public/
+#   hugo --minify          # build into public/
+# The workflow .github/workflows/docs.yml of this repository builds it, checks its links and publishes it to GitHub Pages.
+# Generated files (function reference, runner help, license copy) come from the private source repository: do not edit
+# docs/content/docs/formulas/functions.md or docs/assets/generated/ by hand.
+baseURL: https://mkmk89.github.io/Replisteer_public/
+title: Replisteer
+locale: en-US
+defaultContentLanguage: en
+
+enableRobotsTXT: true
+# Last-updated dates from git (the workflow fetches the full history).
+enableGitInfo: true
+
+module:
+  hugoVersion:
+    # locale needs 0.158; the theme needs 0.146.
+    min: "0.158.0"
+  imports:
+    - path: github.com/imfing/hextra
+  # The license page shows the repository's LICENSE.md. A mount replaces the default one of its folder, so assets is
+  # mounted again.
+  mounts:
+    - source: assets
+      target: assets
+    - source: ../LICENSE.md
+      target: assets/license/LICENSE.md
+
+markup:
+  highlight:
+    noClasses: false
+  goldmark:
+    renderer:
+      # Raw HTML is used by the landing page layout; all content is written in this repository.
+      unsafe: true
+  tableOfContents:
+    startLevel: 2
+    endLevel: 3
+
+menu:
+  main:
+    - identifier: documentation
+      name: Documentation
+      pageRef: /docs
+      weight: 1
+    - identifier: command-line
+      name: Command line
+      pageRef: /docs/command-line
+      weight: 2
+    - identifier: formulas
+      name: Formulas
+      pageRef: /docs/formulas/functions
+      weight: 3
+    - name: Download
+      pageRef: /docs/getting-started/installation
+      weight: 4
+    - name: Search
+      weight: 5
+      params:
+        type: search
+    - name: GitHub
+      weight: 6
+      url: https://github.com/mkmk89/Replisteer_public
+      params:
+        icon: github
+
+params:
+  # The deduplica.net advertisement (footer of every page and the FetchXML pages); enable: false removes it.
+  deduplica:
+    enable: true
+    url: https://www.deduplica.net/dynamics
+
+  # Runner downloads: the latest release of the public repository.
+  downloads: https://github.com/mkmk89/Replisteer_public/releases/latest/download/
+  issues: https://github.com/mkmk89/Replisteer_public/issues
+
+  description: Replisteer moves data between Dataverse / Dynamics 365, SQL Server and CSV files, with formulas, lookups and multi-step mappings. An XrmToolBox tool and a command line runner.
+
+  externalLinkDecoration: true
+
+  navbar:
+    displayTitle: true
+    displayLogo: true
+    logo:
+      path: images/logo.png
+      dark: images/logo.png
+      width: 32
+      height: 32
+    width: wide
+
+  theme:
+    default: system
+    displayToggle: true
+
+  footer:
+    enable: true
+    displayCopyright: true
+    displayPoweredBy: true
+    width: normal
+
+  displayUpdatedDate: true
+  dateFormat: "January 2, 2006"
+
+  search:
+    enable: true
+    type: flexsearch
+    flexsearch:
+      index: content
+      tokenize: forward
+
+  editURL:
+    enable: false
+
+  highlight:
+    copy:
+      enable: true
+      display: hover
+
+  page:
+    width: normal
+    contextMenu:
+      enable: false
+
+  imageZoom:
+    enable: true

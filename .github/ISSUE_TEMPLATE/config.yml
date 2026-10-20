@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Documentation
+    url: https://mkmk89.github.io/Replisteer_public/
+    about: The user guide, formula reference and command line runner.

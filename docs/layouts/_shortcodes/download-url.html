@@ -1,0 +1,7 @@
+{{- /*
+The URL of a runner download of the latest public release (params.downloads in hugo.yaml). Usable in text and in code
+blocks.
+
+@example {{< download-url "replisteer-win-x64.zip" >}}
+*/ -}}
+{{- printf "%s%s" site.Params.downloads (.Get 0) -}}

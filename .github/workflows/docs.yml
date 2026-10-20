@@ -1,0 +1,88 @@
+# Builds the documentation site (docs/, Hugo with the Hextra theme), checks every link and publishes it to GitHub Pages.
+# Settings > Pages > Build and deployment > Source: GitHub Actions.
+name: Documentation
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - docs/**
+      - tools/check-links.py
+      - .github/workflows/docs.yml
+  pull_request:
+    paths:
+      - docs/**
+      - tools/check-links.py
+      - .github/workflows/docs.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages-${{ github.event_name == 'pull_request' && github.ref || 'publish' }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+env:
+  HUGO_VERSION: 0.168.0
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # The full history gives every page its last-updated date.
+          fetch-depth: 0
+
+      # Hugo modules (the theme) are downloaded with Go.
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+          cache: false
+
+      - name: Install Hugo
+        run: |
+          wget -q -O "$RUNNER_TEMP/hugo.deb" "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb"
+          sudo dpkg -i "$RUNNER_TEMP/hugo.deb"
+          hugo version
+
+      # The address comes from the Pages settings, so a custom domain works too. Pull requests use docs/hugo.yaml.
+      - id: pages
+        if: github.event_name != 'pull_request'
+        uses: actions/configure-pages@v5
+
+      - name: Build
+        working-directory: docs
+        env:
+          HUGO_ENVIRONMENT: production
+          BASE_URL: ${{ steps.pages.outputs.base_url }}
+        run: |
+          if [ -n "$BASE_URL" ]; then hugo --minify --baseURL "${BASE_URL%/}/"; else hugo --minify; fi
+
+      - name: Check links
+        env:
+          CONFIGURED: ${{ steps.pages.outcome == 'success' }}
+          BASE_PATH: ${{ steps.pages.outputs.base_path }}
+        run: |
+          if [ "$CONFIGURED" != "true" ]; then BASE_PATH=/Replisteer_public; fi
+          python3 tools/check-links.py docs/public "${BASE_PATH%/}/"
+
+      - uses: actions/upload-pages-artifact@v3
+        if: github.event_name != 'pull_request'
+        with:
+          path: docs/public
+
+  deploy:
+    needs: build
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

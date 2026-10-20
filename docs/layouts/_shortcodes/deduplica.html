@@ -1,0 +1,6 @@
+{{- /*
+The deduplica.net advertisement inside a page.
+
+@example {{< deduplica "dataverse-connector" >}}
+*/ -}}
+{{- partial "deduplica.html" (dict "placement" (.Get 0 | default .Page.File.ContentBaseName)) -}}

@@ -1,0 +1,12 @@
+{{- /*
+The text of the repository's LICENSE.md (mounted in hugo.yaml), with headings one level lower so they fit under the
+page title.
+
+@example {{< license >}}
+*/ -}}
+{{- with resources.Get "license/LICENSE.md" -}}
+  {{- $text := replaceRE `(?m)^(#+) ` "#$1 " .Content -}}
+  {{- $.Page.RenderString (dict "display" "block") $text -}}
+{{- else -}}
+  {{- errorf "LICENSE.md is missing: it is mounted from the root of the repository (docs/hugo.yaml)" -}}
+{{- end -}}

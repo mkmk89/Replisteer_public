@@ -1,0 +1,43 @@
+Replisteer runs projects saved by the Replisteer XrmToolBox tool, without XrmToolBox.
+
+Usage:
+  replisteer run      --project <file> [connections] [--rows <n>] [--output <file>] [--quiet]
+  replisteer preview  --project <file> [connections] [--rows <n>] [--output <file>]
+  replisteer validate --project <file> [connections] [--output <file>]
+  replisteer help | version
+
+Commands:
+  run        Reads the source and writes every row to the targets.
+  preview    Dry run of the first rows (--rows, default 20): shows what would be written, writes nothing.
+  validate   Checks the project, opens every connection and checks tables and columns; writes nothing.
+
+Options:
+  -p, --project <file>       Project file (.replisteer.json or .replisteer.xml), its JSON / XML content,
+                             or - to read it from standard input.
+  -s, --source <connection>  Connection string of the source.
+  -t, --target <name>=<connection>
+                             Connection string of a target, by target name or id; repeat for every target.
+                             The name can be left out when the project has one target.
+  -c, --connections <file>   JSON file with connection strings by connection name, e.g.
+                             { "Source": "...", "CRM": "AuthType=ClientSecret;..." }
+                             Keeps secrets out of the command line and the task scheduler.
+  -r, --rows <n>             preview: number of rows (default 20). run: process at most n rows.
+  -o, --output <file>        Also saves the result: .json (summary, steps, failed rows, preview),
+                             .csv (failed rows; preview records for preview; problems for validate),
+                             .txt or .log (the log).
+  -q, --quiet                Prints only problems and the summary.
+
+Connection strings:
+  Dataverse   AuthType=ClientSecret;Url=https://contoso.crm4.dynamics.com;ClientId=<app id>;ClientSecret=<secret>
+              (other authentication types: https://learn.microsoft.com/power-apps/developer/data-platform/xrm-tooling/use-connection-strings-xrm-tooling-connect)
+  SQL Server  Server=sql.contoso.com;Database=dw;User ID=replisteer;Password=<password>;Encrypt=true
+              Passwords saved by the XrmToolBox tool are used when the runner runs as the same Windows user.
+  CSV file    The file path; without it the path saved in the project is used.
+  Order: --source / --target, then --connections, then environment variables
+  (Connection__<name>__ConnectionString), then the project file.
+
+Exit codes:
+  0  succeeded (validate: no errors)
+  1  the run failed or was cancelled
+  2  the run completed, but some rows failed
+  3  invalid command line, project or connections; nothing was written
