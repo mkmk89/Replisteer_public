@@ -23,7 +23,7 @@ The **toolbar** at the top works on the whole project:
 | **Schedule...** | | Explains how to run the project without XrmToolBox and writes the commands. |
 | **Documentation** | F1 | Opens this documentation at the page for the current tab. |
 
-The right end of the toolbar shows the project name, a `*` when there are unsaved changes, the file name, and the Replisteer logo (click it to open this documentation).
+The Replisteer logo at the left end of the toolbar opens this documentation. The right end of the toolbar shows the project name, a `*` when there are unsaved changes, and the file name.
 
 The **tabs** follow the order in which a project is usually built:
 
