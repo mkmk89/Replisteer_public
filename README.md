@@ -2,7 +2,7 @@
 
 Replisteer moves and synchronises data between **Dataverse / Dynamics 365**, **SQL Server** and **CSV files**: read rows from a source, transform them with formulas, and write them to one or more targets with insert, update, upsert, delete and execute steps.
 
-- **[Documentation](https://mkmk89.github.io/Replisteer_public/)**: user guide, formula reference and command line runner.
+- **[Documentation](https://replisteer.com/)**: user guide, formula reference and command line runner.
 - **XrmToolBox tool:** install *Replisteer: Data Migration (ETL)* from the XrmToolBox Tool Library.
 - **Command line runner:** download `replisteer-win-x64.zip` or `replisteer-linux-x64.tar.gz` from the [latest release](https://github.com/mkmk89/Replisteer_public/releases/latest).
 

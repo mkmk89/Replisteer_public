@@ -1,10 +1,11 @@
 # Replisteer documentation site (Hugo + the Hextra theme, loaded as a Hugo module).
-#   hugo server            # preview at http://localhost:1313/Replisteer_public/
+#   hugo server            # preview at http://localhost:1313/
 #   hugo --minify          # build into public/
-# The workflow .github/workflows/docs.yml of this repository builds it, checks its links and publishes it to GitHub Pages.
+# The workflow .github/workflows/docs.yml of this repository builds it, checks its links and publishes it to GitHub Pages,
+# served at https://replisteer.com (Settings > Pages > Custom domain).
 # Generated files (function reference, runner help, license copy) come from the private source repository: do not edit
 # docs/content/docs/formulas/functions.md or docs/assets/generated/ by hand.
-baseURL: https://mkmk89.github.io/Replisteer_public/
+baseURL: https://replisteer.com/
 title: Replisteer
 locale: en-US
 defaultContentLanguage: en
@@ -55,12 +56,16 @@ menu:
     - name: Download
       pageRef: /docs/getting-started/installation
       weight: 4
-    - name: Search
+    # Hidden unless Replisteer Cloud says it is offered (params.cloud, _partials/custom/head-end.html).
+    - name: Cloud
       weight: 5
+      url: https://app.replisteer.com/
+    - name: Search
+      weight: 6
       params:
         type: search
     - name: GitHub
-      weight: 6
+      weight: 7
       url: https://github.com/mkmk89/Replisteer_public
       params:
         icon: github
@@ -70,6 +75,12 @@ params:
   deduplica:
     enable: true
     url: https://www.deduplica.net/dynamics
+
+  # Replisteer Cloud, the optional paid service that runs projects on a schedule: the Cloud menu link (url, the same as
+  # in the menu) appears only while its status answers that it is offered, as the Cloud Run tab of the tool.
+  cloud:
+    url: https://app.replisteer.com/
+    status: https://api.replisteer.com/api/service/status
 
   # Runner downloads: the latest release of the public repository.
   downloads: https://github.com/mkmk89/Replisteer_public/releases/latest/download/
