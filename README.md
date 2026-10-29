@@ -12,4 +12,4 @@ Replisteer moves and synchronises data between **Dataverse / Dynamics 365**, **S
 
 ## License
 
-Replisteer is free to use, also commercially, under the [PolyForm Perimeter License 1.0.0](LICENSE.md) with an additional permission: use it for anything, including paid work for your clients, but do not offer Replisteer itself (sold, repackaged or hosted) as a product or service of your own. See the license for the exact terms.
+Replisteer is published by OWWARE LTD and free to use, also commercially, under the [PolyForm Perimeter License 1.0.0](LICENSE.md) with an additional permission: use it for anything, including paid work for your clients, but do not offer Replisteer itself (sold, repackaged or hosted) as a product or service of your own. See the license for the exact terms.
